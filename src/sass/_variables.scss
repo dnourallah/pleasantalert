@@ -1,0 +1,132 @@
+
+$enable-rounded:   false !default;
+$padn-white:       #fff !default;
+$padn-black:       #000 !default;
+
+// BOX MODEL
+$padn-width: 32em !default;
+$padn-padding: 1.25em !default;
+$padn-border-radius: .3125em !default;
+$padn-box-shadow: #d9d9d9 !default;
+
+// BACKGROUND
+$padn-background: $padn-white !default;
+
+// TYPOGRAPHY
+$padn-font: inherit !default;
+$padn-font-size: 1rem !default;
+
+// BACKDROP
+$padn-backdrop: rgba($padn-black, .4) !default;
+
+// ICONS
+$padn-icon-size: 5em !default;
+$padn-icon-margin: 1.25em auto 1.875em !default;
+$padn-icon-zoom: normal !default;
+$padn-success: #a5dc86 !default;
+$padn-success-border: rgba($padn-success, .3) !default;
+$padn-error: #f27474 !default;
+$padn-warning: #f8bb86 !default;
+$padn-info: #3fc3ee !default;
+$padn-question: #87adbd !default;
+
+// IMAGE
+$padn-image-margin: 1.25em auto !default;
+
+// TITLE
+$padn-title-margin: 0 0 .4em !default;
+$padn-title-color: lighten($padn-black, 35) !default;
+$padn-title-font-size: 1.875em !default;
+
+// CONTENT
+$padn-content-color: lighten($padn-black, 33) !default;
+$padn-content-font-size: 1.125em !default;
+
+// INPUT
+$padn-input-margin: 1em auto !default;
+$padn-input-height: 2.625em !default;
+$padn-input-padding: .75em !default;
+$padn-input-border: lighten($padn-black, 85) !default;
+$padn-input-border-radius: .1875em !default;
+$padn-input-border-focus: #b4dbed !default;
+$padn-input-box-shadow: rgba($padn-black, .06) !default;
+$padn-input-box-shadow-focus: #c4e6f5 !default;
+$padn-input-font-size: 1.125em !default;
+
+// TEXTAREA SPECIFIC VARIABLES
+$padn-textarea-height: 6.75em !default;
+
+// VALIDATION ERROR
+$padn-validationerror-justify-content: center !default;
+$padn-validationerror-padding: .625em !default;
+$padn-validationerror-background: lighten($padn-black, 94) !default;
+$padn-validationerror-color: lighten($padn-black, 40) !default;
+$padn-validationerror-font-size: 1em !default;
+$padn-validationerror-font-weight: 300 !default;
+$padn-validationerror-icon-background: $padn-error !default;
+$padn-validationerror-icon-color: $padn-white !default;
+$padn-validationerror-icon-zoom: normal !default;
+
+// PROGRESS STEPS
+$padn-progress-steps-margin: 0 0 1.25em !default;
+$padn-progress-steps-distance: 2.5em !default;
+
+// FOOTER
+$padn-footer-margin: 1.25em 0 0 !default;
+$padn-footer-border-color: #eee !default;
+$padn-footer-color: lighten($padn-black, 33) !default;
+$padn-footer-font-size: 1em !default;
+
+// ANIMATIONS
+$padn-show-animation: padn-show .3s !default;
+$padn-hide-animation: padn-hide .15s forwards !default;
+$padn-success-line-tip-animation: padn-animate-success-line-tip .75s !default;
+$padn-success-line-long-animation: padn-animate-success-line-long .75s !default;
+$padn-success-circular-line-animation: padn-rotate-success-circular-line 4.25s ease-in !default;
+$padn-error-icon-animation: padn-animate-error-icon .5s !default;
+$padn-error-x-mark-animation: padn-animate-error-x-mark .5s !default;
+
+// CLOSE BUTTON
+$padn-close-button-position: absolute !default;
+$padn-close-button-gap: 0 !default;
+$padn-close-button-transition: color .1s ease-out !default;
+$padn-close-button-border: none !default;
+$padn-close-button-border-radius: 0 !default;
+$padn-close-button-background: transparent !default;
+$padn-close-button-color: lighten($padn-black, 80) !default;
+$padn-close-button-font-size: 2.5em !default;
+
+// CLOSE BUTTON:HOVER
+$padn-close-button-hover-transform: none !default;
+$padn-close-button-hover-color: $padn-error !default;
+
+// ACTIONS
+$padn-actions-margin: 1.25em auto 0 !default;
+
+// CONFIRM BUTTON
+$padn-confirm-button-border: 0 !default;
+$padn-confirm-button-border-radius: .25em !default;
+$padn-confirm-button-background-color: #3085d6 !default;
+$padn-confirm-button-color: $padn-white !default;
+$padn-confirm-button-font-size: 1.0625em !default;
+
+// CANCEL BUTTON
+$padn-cancel-button-border: 0 !default;
+$padn-cancel-button-border-radius: .25em !default;
+$padn-cancel-button-background-color: #aaa !default;
+$padn-cancel-button-color: $padn-white !default;
+$padn-cancel-button-font-size: 1.0625em !default;
+
+// COMMON VARIABLES FOR CONFIRM AND CANCEL BUTTONS
+$padn-button-darken-hover: rgba($padn-black, .1) !default;
+$padn-button-darken-active: rgba($padn-black, .2) !default;
+$padn-button-focus-outline: rgba(50, 100, 150, .4) !default;
+
+// TOASTS
+$padn-toast-width: auto !default;
+$padn-toast-padding: .625em !default;
+$padn-toast-title-font-size: 1em !default;
+$padn-toast-content-font-size: 1em !default;
+$padn-toast-input-font-size: 1em !default;
+$padn-toast-validation-font-size: 1em !default;
+$padn-toast-buttons-font-size: 1em !default;

@@ -1,0 +1,365 @@
+body {
+  &.padn-toast-shown {
+    &.padn-has-input  > .padn-container {
+      & > .padn-toast {
+        flex-direction: column;
+        align-items: stretch;
+
+        .padn-actions {
+          flex: 1;
+          align-self: stretch;
+          justify-content: flex-end;
+          height: 2.2em;
+        }
+
+        .padn-loading {
+          justify-content: center;
+        }
+
+        .padn-input {
+          height: 2em;
+          margin: .3125em auto;
+          font-size: $padn-toast-input-font-size;
+        }
+
+        .padn-validationerror {
+          font-size: $padn-toast-validation-font-size;
+        }
+      }
+    }
+
+    & > .padn-container {
+      position: fixed;
+      background-color: transparent;
+
+      &.padn-shown {
+        background-color: transparent;
+      }
+
+      &.padn-top {
+        top: 0;
+        right: auto;
+        bottom: auto;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      &.padn-top-end,
+      &.padn-top-right {
+        top: 0;
+        right: 0;
+        bottom: auto;
+        left: auto;
+      }
+
+      &.padn-top-start,
+      &.padn-top-left {
+        top: 0;
+        right: auto;
+        bottom: auto;
+        left: 0;
+      }
+
+      &.padn-center-start,
+      &.padn-center-left {
+        top: 50%;
+        right: auto;
+        bottom: auto;
+        left: 0;
+        transform: translateY(-50%);
+      }
+
+      &.padn-center {
+        top: 50%;
+        right: auto;
+        bottom: auto;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      &.padn-center-end,
+      &.padn-center-right {
+        top: 50%;
+        right: 0;
+        bottom: auto;
+        left: auto;
+        transform: translateY(-50%);
+      }
+
+      &.padn-bottom-start,
+      &.padn-bottom-left {
+        top: auto;
+        right: auto;
+        bottom: 0;
+        left: 0;
+      }
+
+      &.padn-bottom {
+        top: auto;
+        right: auto;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      &.padn-bottom-end,
+      &.padn-bottom-right {
+        top: auto;
+        right: 0;
+        bottom: 0;
+        left: auto;
+      }
+    }
+  }
+}
+
+.padn-popup {
+  &.padn-toast {
+    flex-direction: row;
+    align-items: center;
+    width: $padn-toast-width;
+    padding: $padn-toast-padding;
+    box-shadow: 0 0 .625em $padn-box-shadow;
+    overflow-y: hidden;
+
+    .padn-header {
+      flex-direction: row;
+    }
+
+    .padn-title {
+      justify-content: flex-start;
+      margin: 0 .6em;
+      font-size: $padn-toast-title-font-size;
+    }
+
+    .padn-close {
+      position: initial;
+    }
+
+    .padn-content {
+      justify-content: flex-start;
+      font-size: $padn-toast-content-font-size;
+    }
+
+    .padn-icon {
+      width: 2em;
+      min-width: 2em;
+      height: 2em;
+      margin: 0;
+
+      &-text {
+        font-size: 2em;
+        font-weight: bold;
+        line-height: 1em;
+      }
+
+      &.padn-success {
+
+        .padn-success-ring {
+          width: 2em;
+          height: 2em;
+        }
+      }
+
+      &.padn-error {
+
+        [class^='padn-x-mark-line'] {
+          top: .875em;
+          width: 1.375em;
+
+          &[class$='left'] {
+            left: .3125em;
+          }
+
+          &[class$='right'] {
+            right: .3125em;
+          }
+        }
+      }
+    }
+
+    .padn-actions {
+      height: auto;
+      margin: 0 .3125em;
+    }
+
+    .padn-styled {
+      margin: 0 .3125em;
+      padding: .3125em .625em;
+      font-size: $padn-toast-buttons-font-size;
+
+      &:focus {
+        box-shadow: 0 0 0 .0625em $padn-white, 0 0 0 .125em $padn-button-focus-outline;
+      }
+    }
+
+    .padn-success {
+      border-color: $padn-success;
+
+      [class^='padn-success-circular-line'] { // Emulate moving circular line
+        position: absolute;
+        width: 2em;
+        height: 2.8125em;
+        transform: rotate(45deg);
+        border-radius: 50%;
+
+        &[class$='left'] {
+          top: -.25em;
+          left: -.9375em;
+          transform: rotate(-45deg);
+          transform-origin: 2em 2em;
+          border-radius: 4em 0 0 4em;
+        }
+
+        &[class$='right'] {
+          top: -.25em;
+          left: .9375em;
+          transform-origin: 0 2em;
+          border-radius: 0 4em 4em 0;
+        }
+      }
+
+      .padn-success-ring {
+        width: 2em;
+        height: 2em;
+      }
+
+      .padn-success-fix {
+        top: 0;
+        left: .4375em;
+        width: .4375em;
+        height: 2.6875em;
+      }
+
+      [class^='padn-success-line'] {
+        height: .3125em;
+
+        &[class$='tip'] {
+          top: 1.125em;
+          left: .1875em;
+          width: .75em;
+        }
+
+        &[class$='long'] {
+          top: .9375em;
+          right: .1875em;
+          width: 1.375em;
+        }
+      }
+    }
+
+    &.padn-show {
+      animation: showToast .5s;
+    }
+
+    &.padn-hide {
+      animation: hideToast .2s forwards;
+    }
+
+    .padn-animate-success-icon {
+      .padn-success-line-tip {
+        animation: animate-toast-success-tip .75s;
+      }
+
+      .padn-success-line-long {
+        animation: animate-toast-success-long .75s;
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes showToast {
+  0% {
+    transform: translateY(-.625em) rotateZ(2deg);
+    opacity: 0;
+  }
+
+  33% {
+    transform: translateY(0) rotateZ(-2deg);
+    opacity: .5;
+  }
+
+  66% {
+    transform: translateY(.3125em) rotateZ(2deg);
+    opacity: .7;
+  }
+
+  100% {
+    transform: translateY(0) rotateZ(0);
+    opacity: 1;
+  }
+}
+
+@keyframes hideToast {
+  0% {
+    opacity: 1;
+  }
+
+  33% {
+    opacity: .5;
+  }
+
+  100% {
+    transform: rotateZ(1deg);
+    opacity: 0;
+  }
+}
+
+@keyframes animate-toast-success-tip {
+  0% {
+    top: .5625em;
+    left: .0625em;
+    width: 0;
+  }
+
+  54% {
+    top: .125em;
+    left: .125em;
+    width: 0;
+  }
+
+  70% {
+    top: .625em;
+    left: -.25em;
+    width: 1.625em;
+  }
+
+  84% {
+    top: 1.0625em;
+    left: .75em;
+    width: .5em;
+  }
+
+  100% {
+    top: 1.125em;
+    left: .1875em;
+    width: .75em;
+  }
+}
+
+@keyframes animate-toast-success-long {
+  0% {
+    top: 1.625em;
+    right: 1.375em;
+    width: 0;
+  }
+
+  65% {
+    top: 1.25em;
+    right: .9375em;
+    width: 0;
+  }
+
+  84% {
+    top: .9375em;
+    right: 0;
+    width: 1.125em;
+  }
+
+  100% {
+    top: .9375em;
+    right: .1875em;
+    width: 1.375em;
+  }
+}

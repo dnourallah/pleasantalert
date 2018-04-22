@@ -1,0 +1,878 @@
+// PleasantAlert
+// github.com/dnourallah/pleasantalert
+
+@import 'variables';
+@import 'animations';
+@import 'mixins';
+@import 'toasts';
+
+html,
+body {
+  &.padn-shown {
+    @include ignored(
+      '.padn-no-backdrop',
+      '.padn-toast-shown'
+    ) {
+      height: auto; // #781
+      overflow-y: hidden;
+    }
+  }
+}
+
+body {
+  &.padn-no-backdrop {
+
+    .padn-shown {
+      top: auto;
+      right: auto;
+      bottom: auto;
+      left: auto;
+      background-color: transparent;
+
+      & > .padn-modal {
+        box-shadow: 0 0 10px $padn-backdrop;
+      }
+
+      &.padn-top {
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      &.padn-top-start,
+      &.padn-top-left {
+        top: 0;
+        left: 0;
+      }
+
+      &.padn-top-end,
+      &.padn-top-right {
+        top: 0;
+        right: 0;
+      }
+
+      &.padn-center {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      &.padn-center-start,
+      &.padn-center-left {
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+      }
+
+      &.padn-center-end,
+      &.padn-center-right {
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+      }
+
+      &.padn-bottom {
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      &.padn-bottom-start,
+      &.padn-bottom-left {
+        bottom: 0;
+        left: 0;
+      }
+
+      &.padn-bottom-end,
+      &.padn-bottom-right {
+        right: 0;
+        bottom: 0;
+      }
+    }
+  }
+}
+
+.padn-container {
+  // centering
+  display: flex;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+
+  // backdrop
+  background-color: transparent;
+
+  z-index: 1060;
+  overflow-x: hidden;
+
+  -webkit-overflow-scrolling: touch;
+
+  &.padn-top {
+    align-items: flex-start;
+  }
+
+  &.padn-top-start,
+  &.padn-top-left {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  &.padn-top-end,
+  &.padn-top-right {
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
+
+  &.padn-center {
+    align-items: center;
+  }
+
+  &.padn-center-start,
+  &.padn-center-left {
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  &.padn-center-end,
+  &.padn-center-right {
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  &.padn-bottom {
+    align-items: flex-end;
+  }
+
+  &.padn-bottom-start,
+  &.padn-bottom-left {
+    align-items: flex-end;
+    justify-content: flex-start;
+  }
+
+  &.padn-bottom-end,
+  &.padn-bottom-right {
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+
+  &.padn-grow-fullscreen > .padn-modal {
+    display: flex !important;
+    flex: 1;
+    align-self: stretch;
+    justify-content: center;
+  }
+
+  &.padn-grow-row > .padn-modal {
+    display: flex !important;
+    flex: 1;
+    align-content: center;
+    justify-content: center;
+  }
+
+  &.padn-grow-column {
+    flex: 1;
+    flex-direction: column;
+
+    &.padn-top,
+    &.padn-center,
+    &.padn-bottom {
+      align-items: center;
+    }
+
+    &.padn-top-start,
+    &.padn-center-start,
+    &.padn-bottom-start,
+    &.padn-top-left,
+    &.padn-center-left,
+    &.padn-bottom-left {
+      align-items: flex-start;
+    }
+
+    &.padn-top-end,
+    &.padn-center-end,
+    &.padn-bottom-end,
+    &.padn-top-right,
+    &.padn-center-right,
+    &.padn-bottom-right {
+      align-items: flex-end;
+    }
+
+    & > .padn-modal {
+      display: flex !important;
+      flex: 1;
+      align-content: center;
+      justify-content: center;
+    }
+  }
+
+  @include ignored(
+    '.padn-top',
+    '.padn-top-start',
+    '.padn-top-end',
+    '.padn-top-left',
+    '.padn-top-right',
+    '.padn-center-start',
+    '.padn-center-end',
+    '.padn-center-left',
+    '.padn-center-right',
+    '.padn-bottom',
+    '.padn-bottom-start',
+    '.padn-bottom-end',
+    '.padn-bottom-left',
+    '.padn-bottom-right') {
+    & > .padn-modal {
+      margin: auto;
+    }
+  }
+
+  @include ie {
+    .padn-modal {
+      margin: 0 !important;
+    }
+  }
+
+  &.padn-fade {
+    transition: background-color .1s;
+  }
+
+  &.padn-shown {
+    background-color: $padn-backdrop;
+  }
+}
+
+.padn-confirm {
+  margin: .46875em;
+  padding: 0 10px 0 10px;
+}
+
+.padn-cancel {
+  margin: .46875em;
+  padding: 0 10px 0 10px;
+}
+
+.padn-popup {
+  display: none;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  width: $padn-width;
+  max-width: 100%;
+  padding: $padn-padding;
+  border-radius: $padn-border-radius;
+  background: $padn-background;
+  font-family: $padn-font;
+  font-size: $padn-font-size;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+  }
+
+  &.padn-loading {
+    overflow-y: hidden;
+  }
+
+  .padn-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .padn-title {
+    display: block;
+    position: relative;
+    max-width: 100%;
+    margin: $padn-title-margin;
+    padding: 0;
+    color: $padn-title-color;
+    font-size: $padn-title-font-size;
+    font-weight: 600;
+    text-align: center;
+    text-transform: none;
+    word-wrap: break-word;
+  }
+
+  .padn-actions {
+    align-items: center;
+    justify-content: center;
+    margin: $padn-actions-margin;
+
+    &:not(.padn-loading) {
+      .padn-styled {
+        &[disabled] {
+          opacity: .4;
+        }
+
+        &:hover {
+          background-image: linear-gradient($padn-button-darken-hover, $padn-button-darken-hover);
+        }
+
+        &:active {
+          background-image: linear-gradient($padn-button-darken-active, $padn-button-darken-active);
+        }
+      }
+    }
+
+    &.padn-loading {
+      .padn-styled {
+        &.padn-confirm {
+          width: 2.5em;
+          height: 2.5em;
+          margin: .46875em;
+          padding: 0;
+          border: .25em solid transparent;
+          border-radius: 100%;
+          border-color: transparent;
+          background-color: transparent !important;
+          color: transparent;
+          cursor: default;
+          box-sizing: border-box;
+          animation: padn-rotate-loading 1.5s linear 0s infinite normal;
+          user-select: none;
+        }
+
+        &.padn-cancel {
+          margin-right: 30px;
+          margin-left: 30px;
+        }
+      }
+
+      :not(.padn-styled) {
+        &.padn-confirm {
+          &::after {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            margin-left: 5px;
+            border: 3px solid lighten($padn-black, 60);
+            border-radius: 50%;
+            border-right-color: transparent;
+            box-shadow: 1px 1px 1px $padn-white;
+            content: '';
+            animation: padn-rotate-loading 1.5s linear 0s infinite normal;
+          }
+        }
+      }
+    }
+  }
+
+  .padn-btn-styled {
+    margin: 0 .3125em;
+    padding: .625em 2em;
+    font-weight: 500;
+    box-shadow: none;
+
+    &:not([disabled]) {
+      cursor: pointer;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px $padn-white, 0 0 0 4px $padn-button-focus-outline;
+    }
+
+    &::-moz-focus-inner {
+      border: 0;
+    }
+  }
+
+
+  .padn-styled {
+
+    @extend .padn-btn-styled;
+
+    &.padn-confirm {
+      border: $padn-confirm-button-border;
+      @include border-radius($padn-confirm-button-border-radius);
+      background: initial;
+      background-color: $padn-confirm-button-background-color;
+      color: $padn-confirm-button-color;
+      font-size: $padn-confirm-button-font-size;
+    }
+
+    &.padn-cancel {
+      border: $padn-cancel-button-border;
+      @include border-radius($padn-confirm-button-border-radius);
+      background: initial;
+      background-color: $padn-cancel-button-background-color;
+      color: $padn-cancel-button-color;
+      font-size: $padn-cancel-button-font-size;
+    }
+
+  }
+
+  .padn-footer {
+    justify-content: center;
+    margin: $padn-footer-margin;
+    padding-top: 1em;
+    border-top: 1px solid $padn-footer-border-color;
+    color: $padn-footer-color;
+    font-size: $padn-footer-font-size;
+  }
+
+  .padn-image {
+    max-width: 100%;
+    margin: $padn-image-margin;
+  }
+
+  .padn-close {
+    position: $padn-close-button-position;
+    top: $padn-close-button-gap;
+    right: $padn-close-button-gap;
+    justify-content: center;
+    width: 1.2em;
+    min-width: 1.2em;
+    height: 1.2em;
+    margin: 0;
+    padding: 0;
+    transition: $padn-close-button-transition;
+    border: $padn-close-button-border;
+    @include border-radius($padn-close-button-border-radius);
+    background: $padn-close-button-background;
+    color: $padn-close-button-color;
+    font-family: serif;
+    // calc is needed for the correct focus outline, w/o calc: https://goo.gl/T3NYRm
+    font-size: calc(#{$padn-close-button-font-size} - #{$padn-close-button-font-size*.1});
+    line-height: 1.2em;
+    cursor: pointer;
+
+    &:hover {
+      transform: $padn-close-button-hover-transform;
+      color: $padn-close-button-hover-color;
+    }
+  }
+
+  > .padn-input,
+  > .padn-file,
+  > .padn-textarea,
+  > .padn-select,
+  > .padn-radio,
+  > .padn-checkbox {
+    display: none;
+  }
+
+  .padn-content {
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    color: $padn-content-color;
+    font-size: $padn-content-font-size;
+    font-weight: 300;
+    line-height: normal;
+    word-wrap: break-word;
+  }
+
+  #padn-content {
+    text-align: center;
+  }
+
+  .padn-input,
+  .padn-file,
+  .padn-textarea,
+  .padn-select,
+  .padn-radio,
+  .padn-checkbox {
+    margin: $padn-input-margin;
+  }
+
+  .padn-input,
+  .padn-file,
+  .padn-textarea {
+    width: 100%;
+    transition: border-color .3s, box-shadow .3s;
+    border: 1px solid $padn-input-border;
+    @include border-radius($padn-input-border-radius);
+    font-size: $padn-input-font-size;
+    box-shadow: inset 0 1px 1px $padn-input-box-shadow;
+    box-sizing: border-box;
+
+    &.padn-inputerror {
+      border-color: $padn-error !important;
+      box-shadow: 0 0 2px $padn-error !important;
+    }
+
+    &:focus {
+      border: 1px solid $padn-input-border-focus;
+      outline: none;
+      box-shadow: 0 0 3px $padn-input-box-shadow-focus;
+    }
+
+    &::placeholder {
+      color: lighten($padn-black, 80);
+    }
+  }
+
+  .padn-range {
+    input {
+      width: 80%;
+    }
+
+    output {
+      width: 20%;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    input,
+    output {
+      height: $padn-input-height;
+      margin: $padn-input-margin;
+      padding: 0;
+      font-size: $padn-input-font-size;
+      line-height: $padn-input-height;
+    }
+  }
+
+  .padn-input {
+    height: $padn-input-height;
+    padding: $padn-input-padding;
+
+    &[type='number'] {
+      max-width: 10em;
+    }
+  }
+
+  .padn-file {
+    font-size: $padn-input-font-size;
+  }
+
+  .padn-textarea {
+    height: $padn-textarea-height;
+    padding: $padn-input-padding;
+  }
+
+  .padn-select {
+    min-width: 50%;
+    max-width: 100%;
+    padding: .375em .625em;
+    color: lighten($padn-black, 33);
+    font-size: $padn-input-font-size;
+  }
+
+  .padn-radio,
+  .padn-checkbox {
+    align-items: center;
+    justify-content: center;
+
+    label {
+      margin: 0 .6em;
+      font-size: $padn-input-font-size;
+    }
+
+    input {
+      margin: 0 .4em;
+    }
+  }
+
+  .padn-validationerror {
+    display: none;
+    align-items: center;
+    justify-content: $padn-validationerror-justify-content;
+    padding: $padn-validationerror-padding;
+    background: $padn-validationerror-background;
+    color: $padn-validationerror-color;
+    font-size: $padn-validationerror-font-size;
+    font-weight: $padn-validationerror-font-weight;
+    overflow: hidden;
+
+    &::before {
+      display: inline-block;
+      width: 1.5em;
+      height: 1.5em;
+      margin: 0 .625em;
+      border-radius: 50%;
+      background-color: $padn-validationerror-icon-background;
+      color: $padn-validationerror-icon-color;
+      font-weight: 600;
+      line-height: 1.5em;
+      text-align: center;
+      content: '!';
+      zoom: $padn-validationerror-icon-zoom;
+    }
+  }
+}
+
+@supports (-ms-accelerator: true) {
+  .padn-range {
+    input {
+      width: 100% !important;
+    }
+
+    output {
+      display: none;
+    }
+  }
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .padn-range {
+    input {
+      width: 100% !important;
+    }
+
+    output {
+      display: none;
+    }
+  }
+}
+
+.padn-icon {
+  position: relative;
+  justify-content: center;
+  width: $padn-icon-size;
+  height: $padn-icon-size;
+  margin: $padn-icon-margin;
+  border: .25em solid transparent;
+  border-radius: 50%;
+  line-height: $padn-icon-size;
+  cursor: default;
+  box-sizing: content-box;
+  user-select: none;
+  zoom: $padn-icon-zoom;
+
+  &-text {
+    font-size: 3.75em;
+  }
+
+  &.padn-error {
+    border-color: $padn-error;
+
+    .padn-x-mark {
+      position: relative;
+      flex-grow: 1;
+    }
+
+    [class^='padn-x-mark-line'] {
+      display: block;
+      position: absolute;
+      top: 2.3125em;
+      width: 2.9375em;
+      height: .3125em;
+      border-radius: .125em;
+      background-color: $padn-error;
+
+      &[class$='left'] {
+        left: 1.0625em;
+        transform: rotate(45deg);
+      }
+
+      &[class$='right'] {
+        right: 1em;
+        transform: rotate(-45deg);
+      }
+    }
+  }
+
+  &.padn-warning {
+    border-color: lighten($padn-warning, 7);
+    color: $padn-warning;
+  }
+
+  &.padn-info {
+    border-color: lighten($padn-info, 20);
+    color: $padn-info;
+  }
+
+  &.padn-question {
+    border-color: lighten($padn-question, 20);
+    color: $padn-question;
+  }
+
+  &.padn-success {
+    border-color: $padn-success;
+
+    [class^='padn-success-circular-line'] { // Emulate moving circular line
+      position: absolute;
+      width: 3.75em;
+      height: 7.5em;
+      transform: rotate(45deg);
+      border-radius: 50%;
+
+      &[class$='left'] {
+        top: -.4375em;
+        left: -2.0635em;
+        transform: rotate(-45deg);
+        transform-origin: 3.75em 3.75em;
+        border-radius: 7.5em 0 0 7.5em;
+      }
+
+      &[class$='right'] {
+        top: -.6875em;
+        left: 1.875em;
+        transform: rotate(-45deg);
+        transform-origin: 0 3.75em;
+        border-radius: 0 7.5em 7.5em 0;
+      }
+    }
+
+    .padn-success-ring { // Ring
+      position: absolute;
+      top: -.25em;
+      left: -.25em;
+      width: 100%;
+      height: 100%;
+      border: .25em solid $padn-success-border;
+      border-radius: 50%;
+      z-index: 2;
+      box-sizing: content-box;
+    }
+
+    .padn-success-fix { // Hide corners left from animation
+      position: absolute;
+      top: .5em;
+      left: 1.625em;
+      width: .4375em;
+      height: 5.625em;
+      transform: rotate(-45deg);
+      z-index: 1;
+    }
+
+    [class^='padn-success-line'] {
+      display: block;
+      position: absolute;
+      height: .3125em;
+      border-radius: .125em;
+      background-color: $padn-success;
+      z-index: 2;
+
+      &[class$='tip'] {
+        top: 2.875em;
+        left: .875em;
+        width: 1.5625em;
+        transform: rotate(45deg);
+      }
+
+      &[class$='long'] {
+        top: 2.375em;
+        right: .5em;
+        width: 2.9375em;
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}
+
+.padn-progresssteps {
+  $lightblue: #add8e6;
+  $blue: #3085d6;
+
+  align-items: center;
+  margin: $padn-progress-steps-margin;
+  padding: 0;
+  font-weight: 600;
+
+  li {
+    display: inline-block;
+    position: relative;
+  }
+
+  .padn-progresscircle {
+    width: 2em;
+    height: 2em;
+    border-radius: 2em;
+    background: $blue;
+    color: $padn-white;
+    line-height: 2em;
+    text-align: center;
+    z-index: 20;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &.padn-activeprogressstep {
+      background: $blue;
+
+      ~ .padn-progresscircle {
+        background: $lightblue;
+      }
+
+      ~ .padn-progressline {
+        background: $lightblue;
+      }
+    }
+  }
+
+  .padn-progressline {
+    width: $padn-progress-steps-distance;
+    height: .4em;
+    margin: 0 -1px;
+    background: $blue;
+    z-index: 10;
+  }
+}
+
+// todo ddddddddddddddddddd
+[class^='padn'] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.padn-show {
+  animation: $padn-show-animation;
+
+  &.padn-noanimation {
+    animation: none;
+  }
+}
+
+.padn-hide {
+  animation: $padn-hide-animation;
+
+  &.padn-noanimation {
+    animation: none;
+  }
+}
+
+
+// Right-to-left support
+[dir='rtl'] {
+  .padn-close {
+    right: auto;
+    left: $padn-close-button-gap;
+  }
+}
+
+
+// Success icon animation
+.padn-animate-success-icon {
+  .padn-success-line-tip {
+    animation: $padn-success-line-tip-animation;
+  }
+
+  .padn-success-line-long {
+    animation: $padn-success-line-long-animation;
+  }
+
+  .padn-success-circular-line-right {
+    animation: $padn-success-circular-line-animation;
+  }
+}
+
+// Error icon animation
+.padn-animate-error-icon {
+  animation: $padn-error-icon-animation;
+
+  .padn-x-mark {
+    animation: $padn-error-x-mark-animation;
+  }
+}
+
+@keyframes padn-rotate-loading {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
